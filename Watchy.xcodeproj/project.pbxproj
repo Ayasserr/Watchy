@@ -21,6 +21,7 @@
 		3697171728A70CC80064E6FA /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171628A70CC80064E6FA /* RequestError.swift */; };
 		3697171A28A70DCC0064E6FA /* MoviesServicesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171928A70DCC0064E6FA /* MoviesServicesEndpoint.swift */; };
 		3697171D28A70EF40064E6FA /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171C28A70EF40064E6FA /* MovieModel.swift */; };
+		3697171F28A710A20064E6FA /* MovieListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171E28A710A20064E6FA /* MovieListCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3697171628A70CC80064E6FA /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		3697171928A70DCC0064E6FA /* MoviesServicesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesServicesEndpoint.swift; sourceTree = "<group>"; };
 		3697171C28A70EF40064E6FA /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		3697171E28A710A20064E6FA /* MovieListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				3697170828A708640064E6FA /* DiscoverView.swift */,
 				3697170A28A708EB0064E6FA /* SegmentPicker.swift */,
+				3697171E28A710A20064E6FA /* MovieListCellView.swift */,
 			);
 			path = DiscoverTab;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3697171F28A710A20064E6FA /* MovieListCellView.swift in Sources */,
 				3697171D28A70EF40064E6FA /* MovieModel.swift in Sources */,
 				3692F9B128A7044100AC3947 /* ContentView.swift in Sources */,
 				3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */,
