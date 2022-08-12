@@ -23,6 +23,9 @@
 		3697171D28A70EF40064E6FA /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171C28A70EF40064E6FA /* MovieModel.swift */; };
 		3697171F28A710A20064E6FA /* MovieListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697171E28A710A20064E6FA /* MovieListCellView.swift */; };
 		3697172128A719FC0064E6FA /* DecoderJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697172028A719FC0064E6FA /* DecoderJSON.swift */; };
+		3697172328A71A6D0064E6FA /* movie_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 3697172228A71A6D0064E6FA /* movie_response.json */; };
+		3697172628A71B090064E6FA /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697172528A71B090064E6FA /* CachedAsyncImage.swift */; };
+		3697172828A71B350064E6FA /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3697172728A71B350064E6FA /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		3697171C28A70EF40064E6FA /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		3697171E28A710A20064E6FA /* MovieListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCellView.swift; sourceTree = "<group>"; };
 		3697172028A719FC0064E6FA /* DecoderJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoderJSON.swift; sourceTree = "<group>"; };
+		3697172228A71A6D0064E6FA /* movie_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = movie_response.json; sourceTree = "<group>"; };
+		3697172528A71B090064E6FA /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImage.swift; sourceTree = "<group>"; };
+		3697172728A71B350064E6FA /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,7 @@
 			children = (
 				3692F9B528A7044300AC3947 /* Preview Assets.xcassets */,
 				3697172028A719FC0064E6FA /* DecoderJSON.swift */,
+				3697172228A71A6D0064E6FA /* movie_response.json */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -101,6 +108,7 @@
 		3697170128A705800064E6FA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3697172428A71AD80064E6FA /* CachedAsyncImage */,
 				3697170728A7081A0064E6FA /* DiscoverTab */,
 			);
 			path = View;
@@ -157,6 +165,15 @@
 				3697171C28A70EF40064E6FA /* MovieModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3697172428A71AD80064E6FA /* CachedAsyncImage */ = {
+			isa = PBXGroup;
+			children = (
+				3697172528A71B090064E6FA /* CachedAsyncImage.swift */,
+				3697172728A71B350064E6FA /* ImageLoader.swift */,
+			);
+			path = CachedAsyncImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +236,7 @@
 			files = (
 				3692F9B628A7044300AC3947 /* Preview Assets.xcassets in Resources */,
 				3692F9B328A7044300AC3947 /* Assets.xcassets in Resources */,
+				3697172328A71A6D0064E6FA /* movie_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +253,7 @@
 				3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */,
 				3697172128A719FC0064E6FA /* DecoderJSON.swift in Sources */,
 				3697171328A70C2F0064E6FA /* Endpoint.swift in Sources */,
+				3697172828A71B350064E6FA /* ImageLoader.swift in Sources */,
 				3697170628A706E00064E6FA /* Color+Extension.swift in Sources */,
 				3697170E28A70BA50064E6FA /* DiscoverViewModel.swift in Sources */,
 				3697171A28A70DCC0064E6FA /* MoviesServicesEndpoint.swift in Sources */,
@@ -242,6 +261,7 @@
 				3697171728A70CC80064E6FA /* RequestError.swift in Sources */,
 				3697170928A708640064E6FA /* DiscoverView.swift in Sources */,
 				3697171528A70C660064E6FA /* RequestDelegate.swift in Sources */,
+				3697172628A71B090064E6FA /* CachedAsyncImage.swift in Sources */,
 				3697171128A70C020064E6FA /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

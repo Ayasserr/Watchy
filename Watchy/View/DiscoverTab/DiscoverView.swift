@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DiscoverView: View {
 	@State private var pickerSelection: MoviesTab = .trending
+	@StateObject private var discoverVM: DiscoverViewModel = DiscoverViewModel()
+	
 	init() {
 		UINavigationBar.appearance().largeTitleTextAttributes = [
 			.foregroundColor: UIColor(.textColor)
@@ -21,13 +23,35 @@ struct DiscoverView: View {
 				Color.backgroundColor.ignoresSafeArea()
 				
 				VStack {
+					// MARK: - SegmentPicker
 					SegmentPicker(pickerSelection: $pickerSelection)
-						
+						.onChange(of: pickerSelection) { newValue in
+							Task { try await discoverVM.getMovies(of: newValue) }
+						}
+					
+					// MARK: - Movies List
+					List {
+						ForEach(discoverVM.movies) { movie in
+							ZStack {
+								NavigationLink(destination: Text(movie.title)) {
+									EmptyView()
+								}
+								.opacity(0)
+								
+								MovieListCellView(movie: movie)
+							}
+						}
+						.listRowSeparator(.hidden)
+						.listRowBackground(Color.clear)
+					}
+					.listStyle(.plain)
 				}
 				.padding()
 			} //: ZStack
 			.navigationTitle("Discover")
-			
+			.onAppear {
+				Task { try await discoverVM.getMovies(of: .trending) }
+			}
 		} //: NavigationView
     }
 }

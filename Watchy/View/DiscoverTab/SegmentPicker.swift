@@ -41,10 +41,3 @@ struct SegmentPicker_Previews: PreviewProvider {
 			.background (Color.backgroundColor)
 	}
 }
-
-// MARK: - MoviesTab
-enum MoviesTab: String, CaseIterable {
-	case trending = "Trending"
-	case nowPlaying = "Now Playing"
-	case upComing = "Up Coming"
-}
