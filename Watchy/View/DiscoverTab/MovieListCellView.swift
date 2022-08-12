@@ -30,6 +30,8 @@ struct MovieListCellView: View {
 				// MARK: - Movie Overview
 				Text(movie.overview ?? "No Overview")
 					.font(.subheadline)
+					.lineLimit(5)
+					.multilineTextAlignment(.leading)
 			}
 		}
 		.foregroundColor(.textColor)
