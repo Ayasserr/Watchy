@@ -13,7 +13,7 @@ class MovieViewModel: ObservableObject, RequestDelegate {
 	@Published var cast: [Cast] = []
 	@Published var genres: [MovieGenres] = []
 	
-	let movieID: Int?
+	let movieID: Int
 	
 	init(movieID: Int) {
 		self.movieID = movieID
@@ -25,12 +25,12 @@ class MovieViewModel: ObservableObject, RequestDelegate {
 	}
 	
 	private func getMovie() async throws {
-		let result = try await sendRequest(from: MoviesServicesEndpoint.movie(id: self.movieID!), model: MovieDetails.self)
+		let result = try await sendRequest(from: MoviesServicesEndpoint.movie(id: self.movieID), model: MovieDetails.self)
 		self.movie = result
 	}
 	
 	private func getCast() async throws {
-		let result = try await sendRequest(from: MoviesServicesEndpoint.cast(id: self.movieID!), model: CastResponse.self)
+		let result = try await sendRequest(from: MoviesServicesEndpoint.cast(id: self.movieID), model: CastResponse.self)
 		self.cast = result.cast
 	}
 }
