@@ -12,7 +12,7 @@ struct ContentView: View {
 	
 	var body: some View {
 		TabView(selection: $selectedTab) {
-			Text("Home")
+			DiscoverView()
 				.tabItem { self.tabLabel(text: "Home", image: "house") }
 			
 			Text("Search")
@@ -32,6 +32,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
 	static var previews: some View {
 		ContentView()
+			.previewDevice("iPhone 13 Pro Max")
 	}
 }
 
