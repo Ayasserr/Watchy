@@ -33,7 +33,7 @@ struct DiscoverView: View {
 					List {
 						ForEach(discoverVM.movies) { movie in
 							ZStack {
-								NavigationLink(destination: Text(movie.title)) {
+								NavigationLink(destination: MovieDetailsView(movieID: movie.id)) {
 									EmptyView()
 								}
 								.opacity(0)
