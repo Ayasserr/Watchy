@@ -13,6 +13,7 @@ struct MovieDetails: Codable, Identifiable {
 	let overview: String?
 	let genres: [MovieGenres]
 	let posterPath: String?
+	let backdropPath: String?
 	let releaseDate: String
 	let runtime: Int?
 	let status: MovieStatus
@@ -24,6 +25,7 @@ struct MovieDetails: Codable, Identifiable {
 		case overview
 		case genres
 		case posterPath = "poster_path"
+		case backdropPath = "backdrop_path"
 		case releaseDate = "release_date"
 		case runtime
 		case status
