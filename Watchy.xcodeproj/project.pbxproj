@@ -11,6 +11,7 @@
 		3643AB9828A7277C000319FF /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643AB9728A7277C000319FF /* MovieDetailsModel.swift */; };
 		3643AB9A28A727CF000319FF /* MovieGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643AB9928A727CF000319FF /* MovieGenre.swift */; };
 		3643AB9D28A7ADC2000319FF /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643AB9C28A7ADC2000319FF /* MovieDetailsView.swift */; };
+		368AC1C228A7E11100B35CA3 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AC1C128A7E11100B35CA3 /* MovieViewModel.swift */; };
 		3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9AE28A7044100AC3947 /* WatchyApp.swift */; };
 		3692F9B128A7044100AC3947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9B028A7044100AC3947 /* ContentView.swift */; };
 		3692F9B328A7044300AC3947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3692F9B228A7044300AC3947 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		3643AB9728A7277C000319FF /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
 		3643AB9928A727CF000319FF /* MovieGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieGenre.swift; sourceTree = "<group>"; };
 		3643AB9C28A7ADC2000319FF /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
+		368AC1C128A7E11100B35CA3 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		3692F9AB28A7044100AC3947 /* Watchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3692F9AE28A7044100AC3947 /* WatchyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchyApp.swift; sourceTree = "<group>"; };
 		3692F9B028A7044100AC3947 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				3697170D28A70BA50064E6FA /* DiscoverViewModel.swift */,
+				368AC1C128A7E11100B35CA3 /* MovieViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				3692F9B128A7044100AC3947 /* ContentView.swift in Sources */,
 				3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */,
 				3697172128A719FC0064E6FA /* DecoderJSON.swift in Sources */,
+				368AC1C228A7E11100B35CA3 /* MovieViewModel.swift in Sources */,
 				3697171328A70C2F0064E6FA /* Endpoint.swift in Sources */,
 				3697172828A71B350064E6FA /* ImageLoader.swift in Sources */,
 				3697170628A706E00064E6FA /* Color+Extension.swift in Sources */,
