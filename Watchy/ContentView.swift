@@ -21,7 +21,7 @@ struct ContentView: View {
 	}
 	
 	@ViewBuilder
-	private func tabLabeltext: String, image: String) -> some View {
+	private func tabLabel(text: String, image: String) -> some View {
 		VStack {
 			Image(systemName: image).imageScale(.large)
 			Text(text)
