@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MovieGenres: Codable, Identifiable, Hashable {
 	let id: Int
