@@ -45,3 +45,18 @@ extension Color {
 	/// The color of all texts and labels in the app.
 	public static let textColor: Color = Color("Text Color")
 }
+
+// MARK: - Custom Genres Colors
+extension Color {
+	/// The background color for sci-fi genre.
+	public static let emerald: Color = Color(hexCode: "0F8950")
+	
+	/// The background color for history genre.
+	public static let blackCoffee: Color = Color(hexCode: "3C302F")
+	
+	/// The background color for drama genre.
+	public static let eggplant: Color = Color(hexCode: "3E2D40")
+	
+	/// The background color for family genre.
+	public static let dodgerBlue: Color = Color(hexCode: "1E90FF")
+}
