@@ -18,7 +18,7 @@ struct ContentView: View {
 			Text("Search")
 				.tabItem { self.tabLabel(text: "Search", image: "magnifyingglass") }
 		}
-    }
+	}
 	
 	@ViewBuilder
 	private func tabLabeltext: String, image: String) -> some View {
@@ -30,9 +30,9 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+	static var previews: some View {
+		ContentView()
+	}
 }
 
 enum Tabs {
