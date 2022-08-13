@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3643AB9628A7273F000319FF /* MovieCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3643AB9528A7273F000319FF /* MovieCast.swift */; };
 		3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9AE28A7044100AC3947 /* WatchyApp.swift */; };
 		3692F9B128A7044100AC3947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9B028A7044100AC3947 /* ContentView.swift */; };
 		3692F9B328A7044300AC3947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3692F9B228A7044300AC3947 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3643AB9528A7273F000319FF /* MovieCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCast.swift; sourceTree = "<group>"; };
 		3692F9AB28A7044100AC3947 /* Watchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3692F9AE28A7044100AC3947 /* WatchyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchyApp.swift; sourceTree = "<group>"; };
 		3692F9B028A7044100AC3947 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				3697171C28A70EF40064E6FA /* MovieModel.swift */,
+				3643AB9528A7273F000319FF /* MovieCast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				3697170E28A70BA50064E6FA /* DiscoverViewModel.swift in Sources */,
 				3697171A28A70DCC0064E6FA /* MoviesServicesEndpoint.swift in Sources */,
 				3697170B28A708EB0064E6FA /* SegmentPicker.swift in Sources */,
+				3643AB9628A7273F000319FF /* MovieCast.swift in Sources */,
 				3697171728A70CC80064E6FA /* RequestError.swift in Sources */,
 				3697170928A708640064E6FA /* DiscoverView.swift in Sources */,
 				3697171528A70C660064E6FA /* RequestDelegate.swift in Sources */,
