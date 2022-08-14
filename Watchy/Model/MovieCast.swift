@@ -24,3 +24,9 @@ struct Cast: Identifiable, Codable {
 		case profilePath = "profile_path"
 	}
 }
+
+extension Cast: Equatable {
+	public static func ==(lhs: Self, rhs: Self) -> Bool {
+		return lhs.id == rhs.id
+	}
+}
