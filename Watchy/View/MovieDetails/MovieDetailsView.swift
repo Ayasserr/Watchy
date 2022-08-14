@@ -142,7 +142,7 @@ struct MovieDetailsView: View {
 			ScrollView(.horizontal, showsIndicators: false) {
 				LazyHStack(alignment: .top, spacing: 20) {
 					ForEach(movieVM.cast) { cast in
-						VStack {
+						VStack(spacing: 5) {
 							imageView(for: cast.profilePath, width: "w185", type: .cast(cast.name))
 								.frame(width: 150, height: 220)
 								.shadow(radius: 5)
@@ -153,11 +153,14 @@ struct MovieDetailsView: View {
 							Text(cast.name)
 								.font(.title3)
 								.fontWeight(.medium)
-								.multilineTextAlignment(.center)
 								.fixedSize(horizontal: false, vertical: true)
+							
+							Text(cast.character)
+								.font(.subheadline)
 						}
 						.frame(width: 150)
 						.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
+						.multilineTextAlignment(.center)
 
 					}
 				}
@@ -176,7 +179,7 @@ struct MovieDetailsView: View {
 
 struct MovieDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
-		MovieDetailsView(movieID: 671)
+		MovieDetailsView(movieID: 585511)
 			.previewDevice("iPhone 13 Pro Max")
 	}
 }
@@ -186,21 +189,32 @@ struct MovieDetailsView_Previews: PreviewProvider {
 // 24428 The Avengers
 // 671 Harry Potter 1
 
-//								.frame(width: 130, height: 200)
-//								.transition(.opacity)
-//								.scaledToFill()
-//								.cornerRadius(15)
-//
-//								(Text(cast.name).italic() + Text("\n") + Text(cast.character))
-//								.bold()
-//								.font(.caption)
-//								.foregroundColor(.white)
-//								.frame(width: 100)
-//								.fixedSize(horizontal: false, vertical: true)
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-
+/*
+ // MARK: - Movie Rate
+ private var movieRate: some View {
+	 ZStack {
+		 Circle()
+			 .trim(from: 0, to: movie.voteAverage / 10)
+			 .stroke(rateColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+			 .rotationEffect(.degrees(-90))
+		 
+		 Circle()
+			 .stroke(.white.opacity(0.3), lineWidth: 4)
+			 
+		 
+		 Text(String(format: "%0.2f", movie.voteAverage))
+			 .font(.subheadline)
+	 }
+	 .frame(width: 50, height: 50)
+ }
+ 
+ private var rateColor: Color {
+	 switch movie.voteAverage {
+		 case 0 ..< 2.5: return .red
+		 case 2.5 ..< 5: return .orange
+		 case 5 ..< 7.5: return .yellow
+		 case 7.5... : return .green
+		 default: return .gray
+	 }
+ }
+ */
