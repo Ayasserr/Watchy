@@ -11,6 +11,7 @@ struct MovieDetails: Codable, Identifiable {
 	let id: Int
 	let title: String
 	let overview: String?
+	let tagline: String?
 	let genres: [MovieGenres]
 	let posterPath: String?
 	let backdropPath: String?
@@ -23,6 +24,7 @@ struct MovieDetails: Codable, Identifiable {
 		case id
 		case title
 		case overview
+		case tagline
 		case genres
 		case posterPath = "poster_path"
 		case backdropPath = "backdrop_path"
@@ -33,6 +35,24 @@ struct MovieDetails: Codable, Identifiable {
 	}
 }
 
+// MARK: - Empty Initalizer
+extension MovieDetails {
+	init() {
+		self.id = 0
+		self.title = ""
+		self.overview = nil
+		self.tagline = nil
+		self.genres = []
+		self.posterPath = nil
+		self.backdropPath = nil
+		self.releaseDate = ""
+		self.runtime = nil
+		self.status = .canceled
+		self.voteAverage = 0.0
+	}
+}
+
+// MARK: - Movie Status
 extension MovieDetails {
 	enum MovieStatus: String, Codable {
 		case rumored = "Rumored"
