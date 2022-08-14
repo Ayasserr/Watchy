@@ -45,7 +45,7 @@ struct FlexibleView_Previews: PreviewProvider {
 				}
 			}
 		}
-		.previewDevice("iPhone 12 Pro")
+		.previewDevice("iPhone 13 Pro Max")
 		.padding(.horizontal, 50)
     }
 }
