@@ -84,7 +84,7 @@ struct MovieDetailsView: View {
 				.overlay {
 					switch type {
 						case .movie: Text(movieVM.movie?.title ?? "")
-						case .cast(let name): Text(name)
+						case .cast(let name): Text(name).padding(.horizontal)
 					}
 				}
 				.cornerRadius(20)
@@ -142,13 +142,23 @@ struct MovieDetailsView: View {
 			ScrollView(.horizontal, showsIndicators: false) {
 				LazyHStack(alignment: .top, spacing: 20) {
 					ForEach(movieVM.cast) { cast in
-						imageView(for: cast.profilePath, width: "w185", type: .cast(cast.name))
-							.frame(width: 150, height: 220)
-							.shadow(radius: 5)
-							.cornerRadius(15)
-							.transition(.opacity)
-							.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
+						VStack {
+							imageView(for: cast.profilePath, width: "w185", type: .cast(cast.name))
+								.frame(width: 150, height: 220)
+								.shadow(radius: 5)
+								.cornerRadius(15)
+								.transition(.opacity)
 							
+							let _ = print(cast.name)
+							Text(cast.name)
+								.font(.title3)
+								.fontWeight(.medium)
+								.multilineTextAlignment(.center)
+								.fixedSize(horizontal: false, vertical: true)
+						}
+						.frame(width: 150)
+						.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
+
 					}
 				}
 			}
