@@ -15,7 +15,6 @@ final class DiscoverViewModel: ObservableObject, RequestDelegate {
 		switch type {
 			case .trending: try await self.getPopular()
 			case .nowPlaying: try await self.getNowPlaying()
-			case .upComing: try await self.getUpcoming()
 		}
 	}
 	
@@ -26,11 +25,6 @@ final class DiscoverViewModel: ObservableObject, RequestDelegate {
 	
 	private func getPopular() async throws {
 		guard let results = try? await sendMoviesRequest(of: .popular) else { return }
-		self.movies = results.results
-	}
-	
-	private func getUpcoming() async throws {
-		guard let results = try? await sendMoviesRequest(of: .upcoming, with: ["region": "us"]) else { return }
 		self.movies = results.results
 	}
 	
@@ -47,5 +41,4 @@ final class DiscoverViewModel: ObservableObject, RequestDelegate {
 enum MoviesTab: String, CaseIterable {
 	case trending = "Trending"
 	case nowPlaying = "Now Playing"
-	case upComing = "Up Coming"
 }
