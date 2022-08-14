@@ -44,10 +44,31 @@ extension MovieDetails {
 	}
 }
 
+// MARK: - Formatted Properties
 extension MovieDetails {
-	var releaseDateFormatted: Date {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy-MM-dd"
-		return dateFormatter.date(from: self.releaseDate) ?? Date()
+	var releaseYear: String {
+		guard let date = Utilities.dateFormatter.date(from: self.releaseDate) else { return "N/A" }
+		return Self.yearFormatter.string(from: date)
 	}
+	
+	var runtimeFormatted: String {
+		guard let runtime = runtime else { return "N/A" }
+		return Self.durationFormatter.string(from: Double(runtime) * 60) ?? "N/A"
+	}
+}
+
+// MARK: - Formatters
+extension MovieDetails {	
+	static private let yearFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy"
+		return formatter
+	}()
+	
+	static private let durationFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .brief
+		formatter.allowedUnits = [.hour, .minute]
+		return formatter
+	}()
 }

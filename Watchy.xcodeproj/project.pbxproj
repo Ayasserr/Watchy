@@ -15,6 +15,7 @@
 		368AC1C528A8262300B35CA3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AC1C428A8262300B35CA3 /* Utilities.swift */; };
 		368AC1C928A8307000B35CA3 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AC1C728A8307000B35CA3 /* FlexibleView.swift */; };
 		368AC1CA28A8307000B35CA3 /* _FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AC1C828A8307000B35CA3 /* _FlexibleView.swift */; };
+		368AC1CC28A8310900B35CA3 /* ViewSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368AC1CB28A8310900B35CA3 /* ViewSize+Extension.swift */; };
 		3692F9AF28A7044100AC3947 /* WatchyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9AE28A7044100AC3947 /* WatchyApp.swift */; };
 		3692F9B128A7044100AC3947 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3692F9B028A7044100AC3947 /* ContentView.swift */; };
 		3692F9B328A7044300AC3947 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3692F9B228A7044300AC3947 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		368AC1C428A8262300B35CA3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		368AC1C728A8307000B35CA3 /* FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
 		368AC1C828A8307000B35CA3 /* _FlexibleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = _FlexibleView.swift; sourceTree = "<group>"; };
+		368AC1CB28A8310900B35CA3 /* ViewSize+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewSize+Extension.swift"; sourceTree = "<group>"; };
 		3692F9AB28A7044100AC3947 /* Watchy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3692F9AE28A7044100AC3947 /* WatchyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchyApp.swift; sourceTree = "<group>"; };
 		3692F9B028A7044100AC3947 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				3697170528A706E00064E6FA /* Color+Extension.swift */,
+				368AC1CB28A8310900B35CA3 /* ViewSize+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				3697171A28A70DCC0064E6FA /* MoviesServicesEndpoint.swift in Sources */,
 				3697170B28A708EB0064E6FA /* SegmentPicker.swift in Sources */,
 				3643AB9628A7273F000319FF /* MovieCast.swift in Sources */,
+				368AC1CC28A8310900B35CA3 /* ViewSize+Extension.swift in Sources */,
 				3697171728A70CC80064E6FA /* RequestError.swift in Sources */,
 				3643AB9A28A727CF000319FF /* MovieGenre.swift in Sources */,
 				3643AB9D28A7ADC2000319FF /* MovieDetailsView.swift in Sources */,
