@@ -96,9 +96,15 @@ struct MovieDetailsView: View {
 	private var movieHeader: some View {
 		ZStack(alignment: .top) {
 			// MARK: - Movie Backdrop Image
-			imageView(for: movieVM.movie?.backdropPath, width: "w1280")
-				.frame(height: 250)
-				.opacity(0.6)
+			GeometryReader { geometry in
+				let global = geometry.frame(in: .global)
+				imageView(for: movieVM.movie?.backdropPath, width: "w1280")
+					.offset(y: global.minY > 0 ? -global.minY : 0)
+					.frame(
+						height: global.minY > 0 ? 250 + global.minY : 250
+					)
+					.opacity(0.8)
+			}
 			
 			// MARK: - Movie Poster Image
 			imageView(for: movieVM.movie?.posterPath, width: "w500")
