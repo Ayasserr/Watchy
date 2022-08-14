@@ -14,9 +14,11 @@ where Data.Element: Hashable {
 	
 	let data: Data
 	let content: (Data.Element) -> Content
+	let alignment: HorizontalAlignment = .center
+	let spacing: CGFloat? = nil
 	
 	var body: some View {
-		ZStack(alignment: .leading) {
+		ZStack(alignment: Alignment(horizontal: alignment, vertical: .center)) {
 			Color.clear
 				.frame(height: 1)
 				.readSize { size in self.availableWidth = size.width }
@@ -24,6 +26,8 @@ where Data.Element: Hashable {
 			_FlexibleView(
 				availableWidth: self.availableWidth,
 				data: self.data,
+				alignment: alignment,
+				spacing: spacing,
 				content: content
 			)
 		}
@@ -32,11 +36,14 @@ where Data.Element: Hashable {
 
 struct FlexibleView_Previews: PreviewProvider {
     static var previews: some View {
-		FlexibleView(data: ["Animation", "Advventure", "Action", "Science Fiction", "Family", "Comedy"]) { element in
-			Text(element)
-				.padding(8)
-				.background(.gray.opacity(0.2))
-				.cornerRadius(8)
+		let data = ["Animation", "Advventure", "Action", "Science Fiction", "Family", "Comedy"]
+		FlexibleView(data: data ) { element in
+			HStack {
+				Text(element)
+				if data.last != element {
+					Text("•")
+				}
+			}
 		}
 		.previewDevice("iPhone 12 Pro")
 		.padding(.horizontal, 50)

@@ -10,12 +10,14 @@ import SwiftUI
 struct _FlexibleView<Data: Collection, Content: View>: View where Data.Element: Hashable {
 	let availableWidth: CGFloat
 	let data: Data
+	let alignment: HorizontalAlignment
+	let spacing: CGFloat?
 	let content: (Data.Element) -> Content
 	
 	@State private var elementsSize: [Data.Element: CGSize] = [:]
 	
     var body: some View {
-		VStack(alignment: .leading) {
+		VStack(alignment: alignment, spacing: spacing) {
 			ForEach(self.computeRows(), id: \.self) { rowElements in
 				HStack(spacing: 8) {
 					ForEach(rowElements, id: \.self) { element in
