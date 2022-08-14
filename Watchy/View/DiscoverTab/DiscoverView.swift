@@ -12,11 +12,10 @@ struct DiscoverView: View {
 	@StateObject private var discoverVM: DiscoverViewModel = DiscoverViewModel()
 	
 	init() {
+		UITableView.appearance().showsVerticalScrollIndicator = false
 		UINavigationBar.appearance().largeTitleTextAttributes = [
 			.foregroundColor: UIColor(.textColor)
 		]
-		
-		UITableView.appearance().showsVerticalScrollIndicator = false
 	}
 	
     var body: some View {
