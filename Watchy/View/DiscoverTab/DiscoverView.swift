@@ -15,6 +15,8 @@ struct DiscoverView: View {
 		UINavigationBar.appearance().largeTitleTextAttributes = [
 			.foregroundColor: UIColor(.textColor)
 		]
+		
+		UITableView.appearance().showsVerticalScrollIndicator = false
 	}
 	
     var body: some View {
@@ -40,6 +42,7 @@ struct DiscoverView: View {
 								
 								MovieListCellView(movie: movie)
 							}
+							.padding(.bottom)
 						}
 						.listRowSeparator(.hidden)
 						.listRowBackground(Color.clear)
