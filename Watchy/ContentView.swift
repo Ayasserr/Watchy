@@ -18,6 +18,7 @@ struct ContentView: View {
 			Text("Search")
 				.tabItem { self.tabLabel(text: "Search", image: "magnifyingglass") }
 		}
+		.preferredColorScheme(.dark)
 	}
 	
 	@ViewBuilder
