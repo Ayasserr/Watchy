@@ -152,10 +152,10 @@
 		3697170128A705800064E6FA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				368AC1C628A8305E00B35CA3 /* FlexibleView */,
+				3697170728A7081A0064E6FA /* DiscoverTab */,
 				3643AB9B28A7ADA8000319FF /* MovieDetails */,
 				3697172428A71AD80064E6FA /* CachedAsyncImage */,
-				3697170728A7081A0064E6FA /* DiscoverTab */,
+				368AC1C628A8305E00B35CA3 /* FlexibleView */,
 			);
 			path = View;
 			sourceTree = "<group>";
