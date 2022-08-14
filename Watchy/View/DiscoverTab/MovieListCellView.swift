@@ -23,7 +23,7 @@ struct MovieListCellView: View {
 					.fontWeight(.semibold)
 				
 				HStack(spacing: 15) {
-					movieRate
+					RateView(voteAverage: movie.voteAverage)
 					movieReleaseDate
 				}
 				
@@ -66,35 +66,6 @@ struct MovieListCellView: View {
 						.foregroundColor(.textColor)
 						.multilineTextAlignment(.center)
 				}
-		}
-		
-	}
-	
-	// MARK: - Movie Rate
-	private var movieRate: some View {
-		ZStack {
-			Circle()
-				.trim(from: 0, to: movie.voteAverage / 10)
-				.stroke(rateColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-				.rotationEffect(.degrees(-90))
-			
-			Circle()
-				.stroke(.white.opacity(0.3), lineWidth: 4)
-				
-			
-			Text(String(format: "%0.2f", movie.voteAverage))
-				.font(.subheadline)
-		}
-		.frame(width: 50, height: 50)
-	}
-	
-	private var rateColor: Color {
-		switch movie.voteAverage {
-			case 0 ..< 2.5: return .red
-			case 2.5 ..< 5: return .orange
-			case 5 ..< 7.5: return .yellow
-			case 7.5... : return .green
-			default: return .gray
 		}
 	}
 	
