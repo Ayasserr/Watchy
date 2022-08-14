@@ -9,9 +9,8 @@ import Foundation
 
 @MainActor
 class MovieViewModel: ObservableObject, RequestDelegate {
-	@Published var movie: MovieDetails?
+	@Published var movie: MovieDetails = MovieDetails()
 	@Published var cast: [Cast] = []
-	@Published var genres: [MovieGenres] = []
 	
 	let movieID: Int
 	
