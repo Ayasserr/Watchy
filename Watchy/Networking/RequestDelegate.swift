@@ -8,11 +8,11 @@
 import Foundation
 
 protocol RequestDelegate {
-	func sendRequest<T>(from endpoint: Endpoint, params: [String: String]?, model: T.Type) async throws -> T where T: Codable
+	func sendRequest<T>(from endpoint: Endpoint, params: [String: String]?, model: T.Type) async throws -> T where T: Decodable
 }
 
 extension RequestDelegate {
-	public func sendRequest<T>(from endpoint: Endpoint, params: [String: String]? = nil, model: T.Type) async throws -> T where T: Codable {
+	public func sendRequest<T>(from endpoint: Endpoint, params: [String: String]? = nil, model: T.Type) async throws -> T where T: Decodable {
 		var urlComponents = URLComponents()
 		urlComponents.scheme = endpoint.scheme
 		urlComponents.host = endpoint.host
