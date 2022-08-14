@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct MovieGenres: Codable, Identifiable, Hashable {
+struct MovieGenres: Decodable, Identifiable, Hashable {
 	let id: Int
 	let name: String
 }

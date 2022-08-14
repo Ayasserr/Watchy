@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CastResponse: Codable {
+struct CastResponse: Decodable {
 	let cast: [Cast]
 }
 
