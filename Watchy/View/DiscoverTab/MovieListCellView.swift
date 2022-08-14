@@ -52,7 +52,6 @@ struct MovieListCellView: View {
 						Text(movie.title)
 							.font(.title2)
 							.fontWeight(.semibold)
-							.foregroundColor(.black)
 							.multilineTextAlignment(.center)
 					}
 			}
@@ -63,7 +62,6 @@ struct MovieListCellView: View {
 					Text(movie.title)
 						.font(.title2)
 						.fontWeight(.semibold)
-						.foregroundColor(.textColor)
 						.multilineTextAlignment(.center)
 				}
 		}
