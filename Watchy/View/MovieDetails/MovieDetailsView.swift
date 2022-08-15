@@ -30,7 +30,7 @@ struct MovieDetailsView: View {
 					LazyVStack(spacing: 15) {
 						movieTitle
 						movieRate
-						movieSummaryInfo
+						movieSummary
 						movieGenres
 						movieOverview
 					}
@@ -38,25 +38,7 @@ struct MovieDetailsView: View {
 					
 					movieCollection
 					movieCast
-					
-					// MARK: - Movie Information
-					VStack(alignment: .leading, spacing: 10) {
-						HStack(spacing: 10) {
-							Image(systemName: "info.circle.fill").imageScale(.large)
-							Text("Information")
-								.font(.title2)
-								.fontWeight(.semibold)
-						}
-						
-						movieInfo("Studio", info: movieVM.movie.company)
-						movieInfo("Release Date", info: movieVM.movie.releaseDateFormattered)
-						movieInfo("Status", info: movieVM.movie.status.rawValue)
-						movieInfo("Run Time", info: movieVM.movie.runtimeFormatted)
-						movieInfo("Region of Origin", info: movieVM.movie.countries)
-						movieInfo("Original Audio", info: movieVM.movie.languages)
-					}
-					.frame(maxWidth: .infinity, alignment: .leading)
-					.padding(.leading, 20)
+					movieInformation
 				}
 			}
 		}
@@ -131,7 +113,7 @@ struct MovieDetailsView: View {
 	
 	
 	// MARK: - Release Date and Runtime
-	private var movieSummaryInfo: some View {
+	private var movieSummary: some View {
 		HStack(spacing: 10) {
 			Text(movieVM.movie.releaseYear)
 			Text("•")
@@ -170,6 +152,29 @@ struct MovieDetailsView: View {
 	}
 	
 	
+	// MARK: - Movie Collection
+	private var movieCollection: some View {
+		Group {
+			if let collection = movieVM.movie.belongsToCollection {
+				VStack(alignment: .leading) {
+					Text("Collection")
+						.font(.title2)
+						.fontWeight(.semibold)
+					
+					NavigationLink(destination: Text("\(collection.id)")) {
+						imageView(for: collection.backdropPath, width: "w780")
+							.frame(width: 250, height: 140)
+							.aspectRatio(contentMode: .fit)
+							.cornerRadius(15)
+					}
+				}
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.padding(.leading, 20)
+			}
+		}
+	}
+	
+	
 	// MARK: - Movie Cast
 	private var movieCast: some View {
 		VStack(alignment: .leading) {
@@ -182,50 +187,50 @@ struct MovieDetailsView: View {
 			ScrollView(.horizontal, showsIndicators: false) {
 				LazyHStack(alignment: .top, spacing: 20) {
 					ForEach(movieVM.cast) { cast in
-						VStack(spacing: 5) {
-							imageView(for: cast.profilePath, width: "w185", type: .cast(cast.name))
-								.frame(width: 150, height: 220)
-								.shadow(radius: 5)
-								.cornerRadius(15)
-								.transition(.opacity)
-							
-							Text(cast.name)
-								.font(.title3)
-								.fontWeight(.medium)
-							
-							Text(cast.character)
-								.font(.subheadline)
+						NavigationLink(destination: Text(cast.name)) {
+							VStack(spacing: 5) {
+								imageView(for: cast.profilePath, width: "w185", type: .cast(cast.name))
+									.frame(width: 150, height: 220)
+									.shadow(radius: 5)
+									.cornerRadius(15)
+									.transition(.opacity)
+								
+								Text(cast.name)
+									.font(.title3)
+									.fontWeight(.medium)
+								
+								Text(cast.character)
+									.font(.subheadline)
+							}
+							.frame(width: 150, height: 300, alignment: .top)
+							.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
+							.multilineTextAlignment(.center)
 						}
-						.frame(width: 150, height: 300, alignment: .top)
-						.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
-						.multilineTextAlignment(.center)
 					}
 				}
 			}
 		}
 	}
 	
-	
-	// MARK: - Movie Collection
-	private var movieCollection: some View {
-		Group {
-			if let collection = movieVM.movie.belongsToCollection {
-				VStack(alignment: .leading) {
-					Text("Collection")
-						.font(.title2)
-						.fontWeight(.semibold)
-					
-					NavigationLink(destination: Text("\(collection.id)")) {
-						imageView(for: collection.backdropPath, width: "w780")
-							.frame(width: 300, height: 180)
-							.aspectRatio(contentMode: .fit)
-							.cornerRadius(15)
-					}
-				}
-				.frame(maxWidth: .infinity, alignment: .leading)
-				.padding(.leading, 20)
+	// MARK: - Movie Information
+	private var movieInformation: some View {
+		VStack(alignment: .leading, spacing: 10) {
+			HStack(spacing: 10) {
+				Image(systemName: "info.circle.fill").imageScale(.large)
+				Text("Information")
+					.font(.title2)
+					.fontWeight(.semibold)
 			}
+			
+			infoView("Studio", info: movieVM.movie.company)
+			infoView("Release Date", info: movieVM.movie.releaseDateFormattered)
+			infoView("Status", info: movieVM.movie.status.rawValue)
+			infoView("Run Time", info: movieVM.movie.runtimeFormatted)
+			infoView("Region of Origin", info: movieVM.movie.countries)
+			infoView("Original Audio", info: movieVM.movie.languages)
 		}
+		.frame(maxWidth: .infinity, alignment: .leading)
+		.padding(.leading, 20)
 	}
 	
 	
@@ -255,9 +260,9 @@ struct MovieDetailsView: View {
 		}
 	}
 	
-	// MARK: - Movie Information
+	// MARK: - Movie Infos
 	@ViewBuilder
-	private func movieInfo(_ label: String, info data: String) -> some View {
+	private func infoView(_ label: String, info data: String) -> some View {
 		VStack(alignment: .leading) {
 			Text(label).fontWeight(.semibold)
 			Text(data).font(.subheadline)
@@ -269,7 +274,7 @@ struct MovieDetailsView: View {
 struct MovieDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
 		NavigationView {
-			MovieDetailsView(movieID: 671)
+			MovieDetailsView(movieID: 299536)
 		}
 		.previewDevice("iPhone 13 mini")
 	}
@@ -280,6 +285,7 @@ struct MovieDetailsView_Previews: PreviewProvider {
 // 24428 The Avengers
 // 671 Harry Potter 1
 // 438148 Minions
+// 299536 Avengers: Infinity War
 
 // MARK: - Image Type enum
 extension MovieDetailsView {

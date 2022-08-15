@@ -11,6 +11,8 @@ import Foundation
 class MovieViewModel: ObservableObject, RequestDelegate {
 	@Published var movie: MovieDetails = MovieDetails()
 	@Published var cast: [Cast] = []
+	@Published var recommendations: [Movie] = []
+	@Published var similars: [Movie] = []
 	
 	let movieID: Int
 	
@@ -21,6 +23,8 @@ class MovieViewModel: ObservableObject, RequestDelegate {
 	public func getMovieDetails() async throws {
 		try await getMovie()
 		try await getCast()
+		try await getRecommendations()
+		try await getSimilars()
 	}
 	
 	private func getMovie() async throws {
@@ -31,5 +35,15 @@ class MovieViewModel: ObservableObject, RequestDelegate {
 	private func getCast() async throws {
 		let result = try await sendRequest(from: MoviesServicesEndpoint.cast(id: self.movieID), model: CastResponse.self)
 		self.cast = result.cast
+	}
+	
+	private func getRecommendations() async throws {
+		let result = try await sendRequest(from: MoviesServicesEndpoint.movieRecommendations(id: movieID), model: MoviesResponse.self)
+		self.recommendations = result.results
+	}
+	
+	private func getSimilars() async throws {
+		let result = try await sendRequest(from: MoviesServicesEndpoint.movieSimilar(id: movieID), model: MoviesResponse.self)
+		self.similars = result.results
 	}
 }
