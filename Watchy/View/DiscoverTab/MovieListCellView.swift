@@ -22,10 +22,8 @@ struct MovieListCellView: View {
 					.font(.title2)
 					.fontWeight(.semibold)
 				
-				HStack(spacing: 15) {
-					RateView(voteAverage: movie.voteAverage)
-					movieReleaseDate
-				}
+				movieRate
+				movieReleaseDate
 				
 				// MARK: - Movie Overview
 				Text(movie.overview ?? "No Overview")
@@ -71,6 +69,15 @@ struct MovieListCellView: View {
 	private var movieReleaseDate: some View {
 		Text(movie.releaseDateFormatted, style: .date)
 			.font(.subheadline)
+			.fontWeight(.semibold)
+	}
+	
+	// MARK: - Movie Rate
+	private var movieRate: some View {
+		HStack(spacing: 10) {
+			Image(systemName: "star.fill").foregroundColor(.yellow)
+			Text(String(format: "%0.2f", movie.voteAverage)).fontWeight(.bold)
+		}
 	}
 }
 
