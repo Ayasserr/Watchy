@@ -22,6 +22,9 @@ struct MovieDetails: Decodable, Identifiable {
 	let voteCount: Int
 	let adult: Bool
 	let belongsToCollection: MovieCollection?
+	let productionCompanies: [Companies]
+	let productionCountries: [Countries]
+	let spokenLanguages: [Languages]
 	
 	enum CodingKeys: String, CodingKey {
 		case id
@@ -38,6 +41,9 @@ struct MovieDetails: Decodable, Identifiable {
 		case voteCount = "vote_count"
 		case adult
 		case belongsToCollection = "belongs_to_collection"
+		case productionCompanies = "production_companies"
+		case productionCountries = "production_countries"
+		case spokenLanguages = "spoken_languages"
 	}
 }
 
@@ -58,7 +64,64 @@ extension MovieDetails {
 		self.voteCount = 0
 		self.adult = false
 		self.belongsToCollection = nil
+		self.productionCompanies = []
+		self.productionCountries = []
+		self.spokenLanguages = []
 	}
+}
+
+// MARK: - Formatted Properties
+extension MovieDetails {
+	var releaseYear: String {
+		guard let date = Utilities.dateFormatter.date(from: self.releaseDate) else { return "N/A" }
+		return Self.yearFormatter.string(from: date)
+	}
+	
+	var releaseDateFormattered: String {
+		guard let date = Utilities.dateFormatter.date(from: self.releaseDate) else { return "N/A" }
+		return Self.fullFormatter.string(from: date)
+	}
+	
+	var runtimeFormatted: String {
+		guard let runtime = runtime else { return "N/A" }
+		return Self.durationFormatter.string(from: Double(runtime) * 60) ?? "N/A"
+	}
+	
+	var company: String {
+		return productionCompanies.first?.name ?? ""
+	}
+	
+	var countries: String {
+		let strings = productionCountries.map { $0.name }
+		return strings.joined(separator: ", ")
+	}
+	
+	var languages: String {
+		let strings = spokenLanguages.map { $0.name }
+		return strings.joined(separator: ", ")
+	}
+}
+
+// MARK: - Formatters
+extension MovieDetails {
+	static private let yearFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "yyyy"
+		return formatter
+	}()
+	
+	static private let fullFormatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .long
+		return formatter
+	}()
+	
+	static private let durationFormatter: DateComponentsFormatter = {
+		let formatter = DateComponentsFormatter()
+		formatter.unitsStyle = .brief
+		formatter.allowedUnits = [.hour, .minute]
+		return formatter
+	}()
 }
 
 // MARK: - Movie Status
@@ -73,31 +136,22 @@ extension MovieDetails {
 	}
 }
 
-// MARK: - Formatted Properties
-extension MovieDetails {
-	var releaseYear: String {
-		guard let date = Utilities.dateFormatter.date(from: self.releaseDate) else { return "N/A" }
-		return Self.yearFormatter.string(from: date)
-	}
-	
-	var runtimeFormatted: String {
-		guard let runtime = runtime else { return "N/A" }
-		return Self.durationFormatter.string(from: Double(runtime) * 60) ?? "N/A"
-	}
+// MARK: - Companies Model
+struct Companies: Identifiable, Decodable {
+	let id: Int
+	let name: String
 }
 
-// MARK: - Formatters
-extension MovieDetails {	
-	static private let yearFormatter: DateFormatter = {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "yyyy"
-		return formatter
-	}()
+// MARK: - Countries Model
+struct Countries: Decodable {
+	let name: String
+}
+
+// MARK: - Languages Model
+struct Languages: Decodable {
+	let name: String
 	
-	static private let durationFormatter: DateComponentsFormatter = {
-		let formatter = DateComponentsFormatter()
-		formatter.unitsStyle = .brief
-		formatter.allowedUnits = [.hour, .minute]
-		return formatter
-	}()
+	enum CodingKeys: String, CodingKey {
+		case name = "english_name"
+	}
 }
