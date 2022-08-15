@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieDetails: Codable, Identifiable {
+struct MovieDetails: Decodable, Identifiable {
 	let id: Int
 	let title: String
 	let overview: String?
@@ -19,6 +19,9 @@ struct MovieDetails: Codable, Identifiable {
 	let runtime: Int?
 	let status: MovieStatus
 	let voteAverage: Double
+	let voteCount: Int
+	let adult: Bool
+	let belongsToCollection: MovieCollection?
 	
 	enum CodingKeys: String, CodingKey {
 		case id
@@ -32,6 +35,9 @@ struct MovieDetails: Codable, Identifiable {
 		case runtime
 		case status
 		case voteAverage = "vote_average"
+		case voteCount = "vote_count"
+		case adult
+		case belongsToCollection = "belongs_to_collection"
 	}
 }
 
@@ -49,12 +55,15 @@ extension MovieDetails {
 		self.runtime = nil
 		self.status = .canceled
 		self.voteAverage = 0.0
+		self.voteCount = 0
+		self.adult = false
+		self.belongsToCollection = nil
 	}
 }
 
 // MARK: - Movie Status
 extension MovieDetails {
-	enum MovieStatus: String, Codable {
+	enum MovieStatus: String, Decodable {
 		case rumored = "Rumored"
 		case planned = "Planned"
 		case inProduction = "In Production"
