@@ -13,41 +13,31 @@ struct MovieDetailsView: View {
 	
 	init(movieID: Int) {
 		self._movieVM = StateObject(wrappedValue: MovieViewModel(movieID: movieID))
-		
 		UINavigationBar.appearance().backIndicatorImage = UIImage(named: "chevron.left.circle.fill")
 	}
 	
 	var body: some View {
 		ZStack(alignment: .top) {
 			// MARK: - Background Image
-			imageView(for: movieVM.movie?.posterPath, width: "w300")
-				.blur(radius: 70, opaque: true)
+			imageView(for: movieVM.movie.posterPath, width: "w300")
+				.blur(radius: 150, opaque: true)
 				.ignoresSafeArea()
 			
 			ScrollView(showsIndicators: false) {
 				LazyVStack {
 					movieHeader
 					
-					LazyVStack(spacing: 10) {
-						Text(movieVM.movie?.title ?? "No Title")
-							.font(.system(.title, design: .rounded))
-							.fontWeight(.medium)
-							.multilineTextAlignment(.center)
-						
-						// MARK: - Release Date and Rate
-						HStack(spacing: 10) {
-							Text(movieVM.movie?.releaseYear ?? "")
-							Text("•")
-							Text(movieVM.movie?.runtimeFormatted ?? "")
-						}
-						.foregroundColor(.textColor)
-						
+					LazyVStack(spacing: 15) {
+						movieTitle
+						movieRate
+						movieSummaryInfo
 						movieGenres
 						movieOverview
 					}
 					.padding(.horizontal, 15)
 					
 					movieCast
+					movieCollection
 				}
 			}
 		}
@@ -75,7 +65,7 @@ struct MovieDetailsView: View {
 			} placeholder: {
 				Rectangle()
 					.foregroundColor(.gray.opacity(0.4))
-					.overlay { Text(movieVM.movie?.title ?? "") }
+					.overlay { Text(movieVM.movie.title) }
 					.cornerRadius(20)
 			}
 		} else {
@@ -83,7 +73,7 @@ struct MovieDetailsView: View {
 				.foregroundColor(.gray.opacity(0.4))
 				.overlay {
 					switch type {
-						case .movie: Text(movieVM.movie?.title ?? "")
+						case .movie: Text(movieVM.movie.title)
 						case .cast(let name): Text(name).padding(.horizontal)
 					}
 				}
@@ -98,7 +88,7 @@ struct MovieDetailsView: View {
 			// MARK: - Movie Backdrop Image
 			GeometryReader { geometry in
 				let global = geometry.frame(in: .global)
-				imageView(for: movieVM.movie?.backdropPath, width: "w1280")
+				imageView(for: movieVM.movie.backdropPath, width: "w1280")
 					.offset(y: global.minY > 0 ? -global.minY : 0)
 					.frame(
 						height: global.minY > 0 ? 250 + global.minY : 250
@@ -107,7 +97,7 @@ struct MovieDetailsView: View {
 			}
 			
 			// MARK: - Movie Poster Image
-			imageView(for: movieVM.movie?.posterPath, width: "w500")
+			imageView(for: movieVM.movie.posterPath, width: "w500")
 				.frame(width: 200, height: 300)
 				.cornerRadius(20)
 				.shadow(radius: 20)
@@ -115,26 +105,69 @@ struct MovieDetailsView: View {
 		} //: ZStack - Backdrop and Poster Images
 	}
 	
+	// MARK: - Movie Title & Tagline
+	private var movieTitle: some View {
+		Group {
+			Text(movieVM.movie.title)
+				.font(.system(.title, design: .rounded))
+				.fontWeight(.medium)
+				.multilineTextAlignment(.center)
+			
+			if let tagline = movieVM.movie.tagline {
+				Text(tagline).multilineTextAlignment(.center)
+			}
+		}
+	}
+	
+	// MARK: - Movie Rate
+	private var movieRate: some View {
+		HStack {
+			Image(systemName: "star.fill").foregroundColor(.yellow)
+			HStack(alignment: .lastTextBaseline) {
+				Text(String(format: "%0.2f", movieVM.movie.voteAverage)).fontWeight(.bold)
+				+ Text(" / 10").fontWeight(.semibold)
+				
+				Text("\(movieVM.movie.voteCount)")
+					.font(.subheadline)
+			}
+		}
+	}
+	
+	// MARK: - Release Date and Runtime
+	private var movieSummaryInfo: some View {
+		HStack(spacing: 10) {
+			Text(movieVM.movie.releaseYear)
+			Text("•")
+			Text(movieVM.movie.runtimeFormatted)
+		}
+		.foregroundColor(.textColor)
+	}
+	
 	// MARK: - Movie Overview
 	private var movieOverview: some View {
-		Text(movieVM.movie?.overview ?? "No Overview")
-			.multilineTextAlignment(.leading)
-			.padding()
-			.background(.gray.opacity(0.35))
-			.cornerRadius(20)
-			.padding(.top)
+		Group {
+			if let overview = movieVM.movie.overview {
+				Text(overview)
+					.multilineTextAlignment(.leading)
+					.padding()
+					.background(.gray.opacity(0.35))
+					.cornerRadius(20)
+					.padding(.top)
+			}
+		}
 	}
 	
 	// MARK: - Movie Genres
 	private var movieGenres: some View {
-		FlexibleView(data: movieVM.movie?.genres ?? []) { genre in
+		FlexibleView(data: movieVM.movie.genres) { genre in
 			HStack {
 				Text(genre.name)
-				if movieVM.movie?.genres.last != genre {
+				if movieVM.movie.genres.last != genre {
 					Text("•")
 				}
 			}
 		}
+		.padding(.horizontal, 15)
 	}
 	
 	// MARK: - Movie Cast
@@ -145,6 +178,7 @@ struct MovieDetailsView: View {
 				.fontWeight(.semibold)
 				.padding(.leading, 20)
 			
+			// FIXME: - Fix truncation in cast name and cast character
 			ScrollView(.horizontal, showsIndicators: false) {
 				LazyHStack(alignment: .top, spacing: 20) {
 					ForEach(movieVM.cast) { cast in
@@ -155,19 +189,16 @@ struct MovieDetailsView: View {
 								.cornerRadius(15)
 								.transition(.opacity)
 							
-							let _ = print(cast.name)
 							Text(cast.name)
 								.font(.title3)
 								.fontWeight(.medium)
-								.fixedSize(horizontal: false, vertical: true)
 							
 							Text(cast.character)
 								.font(.subheadline)
 						}
-						.frame(width: 150)
+						.frame(width: 150, height: 300, alignment: .top)
 						.padding(.leading, movieVM.cast.first == cast ? 20 : 0)
 						.multilineTextAlignment(.center)
-
 					}
 				}
 			}
@@ -175,18 +206,41 @@ struct MovieDetailsView: View {
 		.padding(.vertical)
 	}
 	
+	// MARK: - Movie Collection
+	private var movieCollection: some View {
+		Group {
+			if let collection = movieVM.movie.belongsToCollection {
+				VStack(alignment: .leading) {
+					Text("Collection")
+						.font(.title2)
+						.fontWeight(.semibold)
+					
+					NavigationLink(destination: Text("\(collection.id)")) {
+						imageView(for: collection.backdropPath, width: "w780")
+							.frame(width: 300, height: 180)
+							.aspectRatio(contentMode: .fit)
+							.cornerRadius(15)
+					}
+				}
+				.frame(maxWidth: .infinity, alignment: .leading)
+				.padding(.leading, 20)
+			}
+		}
+	}
+	
 	// MARK: - Image Type enum
 	private enum ImagePlaceholder {
 		case movie
 		case cast(String)
 	}
-	
 }
 
 struct MovieDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
-		MovieDetailsView(movieID: 585511)
-			.previewDevice("iPhone 13 Pro Max")
+		NavigationView {
+			MovieDetailsView(movieID: 671)
+		}
+		.previewDevice("iPhone 13 mini")
 	}
 }
 
@@ -194,33 +248,4 @@ struct MovieDetailsView_Previews: PreviewProvider {
 // 862 Toy Story
 // 24428 The Avengers
 // 671 Harry Potter 1
-
-/*
- // MARK: - Movie Rate
- private var movieRate: some View {
-	 ZStack {
-		 Circle()
-			 .trim(from: 0, to: movie.voteAverage / 10)
-			 .stroke(rateColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-			 .rotationEffect(.degrees(-90))
-		 
-		 Circle()
-			 .stroke(.white.opacity(0.3), lineWidth: 4)
-			 
-		 
-		 Text(String(format: "%0.2f", movie.voteAverage))
-			 .font(.subheadline)
-	 }
-	 .frame(width: 50, height: 50)
- }
- 
- private var rateColor: Color {
-	 switch movie.voteAverage {
-		 case 0 ..< 2.5: return .red
-		 case 2.5 ..< 5: return .orange
-		 case 5 ..< 7.5: return .yellow
-		 case 7.5... : return .green
-		 default: return .gray
-	 }
- }
- */
+// 438148 Minions
