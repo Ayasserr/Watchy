@@ -19,7 +19,7 @@ struct MovieDetailsView: View {
 	var body: some View {
 		ZStack(alignment: .top) {
 			// MARK: - Background Image
-			imageView(for: movieVM.movie.posterPath, width: "w300")
+			imageView(for: movieVM.movie.posterPath, width: "w300", type: .movie(movieVM.movie.title))
 				.blur(radius: 150, opaque: true)
 				.ignoresSafeArea()
 			
@@ -36,6 +36,7 @@ struct MovieDetailsView: View {
 					}
 					.padding(.horizontal, 15)
 					
+					movieRecommendations
 					movieCollection
 					movieCast
 					movieInformation
@@ -55,7 +56,6 @@ struct MovieDetailsView: View {
 		.edgesIgnoringSafeArea(.top)
 		.navigationBarHidden(true)
 		.task { try? await movieVM.getMovieDetails() }
-		.onAppear { print(movieVM.movie)}
 	}
 	
 	// MARK: - Movie Header
@@ -64,7 +64,7 @@ struct MovieDetailsView: View {
 			// MARK: - Movie Backdrop Image
 			GeometryReader { geometry in
 				let global = geometry.frame(in: .global)
-				imageView(for: movieVM.movie.backdropPath, width: "w1280")
+				imageView(for: movieVM.movie.backdropPath, width: "w1280", type: .movie(movieVM.movie.title))
 					.offset(y: global.minY > 0 ? -global.minY : 0)
 					.frame(
 						height: global.minY > 0 ? 250 + global.minY : 250
@@ -73,7 +73,7 @@ struct MovieDetailsView: View {
 			}
 			
 			// MARK: - Movie Poster Image
-			imageView(for: movieVM.movie.posterPath, width: "w500")
+			imageView(for: movieVM.movie.posterPath, width: "w500", type: .movie(movieVM.movie.title))
 				.frame(width: 200, height: 300)
 				.cornerRadius(20)
 				.shadow(radius: 20)
@@ -84,7 +84,7 @@ struct MovieDetailsView: View {
 	
 	// MARK: - Movie Title & Tagline
 	private var movieTitle: some View {
-		Group {
+		VStack(spacing: 10) {
 			Text(movieVM.movie.title)
 				.font(.system(.title, design: .rounded))
 				.fontWeight(.medium)
@@ -103,10 +103,15 @@ struct MovieDetailsView: View {
 			Image(systemName: "star.fill").foregroundColor(.yellow)
 			HStack(alignment: .lastTextBaseline) {
 				Text(String(format: "%0.2f", movieVM.movie.voteAverage)).fontWeight(.bold)
-				+ Text(" / 10").fontWeight(.semibold)
+				+
+				Text(" / 10")
+					.font(.subheadline)
+					.fontWeight(.semibold)
+					.foregroundColor(.textColor.opacity(0.7))
 				
 				Text("\(movieVM.movie.voteCount)")
-					.font(.subheadline)
+					.font(.footnote)
+					.foregroundColor(.textColor.opacity(0.7))
 			}
 		}
 	}
@@ -151,6 +156,31 @@ struct MovieDetailsView: View {
 		.padding(.horizontal, 15)
 	}
 	
+	// MARK: - Movie Recommendations
+	private var movieRecommendations: some View {
+		VStack(alignment: .leading) {
+			Text("Recommendations")
+				.font(.title2)
+				.fontWeight(.semibold)
+				.padding(.leading, 20)
+			
+			ScrollView(.horizontal, showsIndicators: false) {
+				LazyHStack(spacing: 10) {
+					ForEach(movieVM.recommendations) { movie in
+						NavigationLink(destination: MovieDetailsView(movieID: movie.id)) {
+							imageView(for: movie.backdropPath, width: "w780", type: .movie(movie.title))
+								.frame(width: 250, height: 140)
+								.aspectRatio(contentMode: .fit)
+								.cornerRadius(15)
+								.padding(.leading, movieVM.recommendations.first == movie ? 20 : 0)
+						}
+					}
+				}
+			}
+		}
+		.frame(maxWidth: .infinity, alignment: .leading)
+	}
+	
 	
 	// MARK: - Movie Collection
 	private var movieCollection: some View {
@@ -162,7 +192,7 @@ struct MovieDetailsView: View {
 						.fontWeight(.semibold)
 					
 					NavigationLink(destination: Text("\(collection.id)")) {
-						imageView(for: collection.backdropPath, width: "w780")
+						imageView(for: collection.backdropPath, width: "w780", type: .movie(collection.name))
 							.frame(width: 250, height: 140)
 							.aspectRatio(contentMode: .fit)
 							.cornerRadius(15)
@@ -236,14 +266,19 @@ struct MovieDetailsView: View {
 	
 	// MARK: - Movie Images
 	@ViewBuilder
-	private func imageView(for path: String?, width: String, type: ImagePlaceholder = .movie) -> some View {
+	private func imageView(for path: String?, width: String, type: ImagePlaceholder) -> some View {
 		if let path = path {
 			CachedAsyncImage(url: URL(string: "\(API.imagesURL)\(width)\(path)")) { image in
 				image.resizable()
 			} placeholder: {
 				Rectangle()
 					.foregroundColor(.gray.opacity(0.4))
-					.overlay { Text(movieVM.movie.title) }
+					.overlay {
+						switch type {
+							case .movie(let movie): Text(movie)
+							case .cast(let cast): Text(cast)
+						}
+					}
 					.cornerRadius(20)
 			}
 		} else {
@@ -255,7 +290,6 @@ struct MovieDetailsView: View {
 						case .cast(let name): Text(name).padding(.horizontal)
 					}
 				}
-				.cornerRadius(20)
 				.multilineTextAlignment(.center)
 		}
 	}
@@ -274,7 +308,7 @@ struct MovieDetailsView: View {
 struct MovieDetailsView_Previews: PreviewProvider {
 	static var previews: some View {
 		NavigationView {
-			MovieDetailsView(movieID: 299536)
+			MovieDetailsView(movieID: 671)
 		}
 		.previewDevice("iPhone 13 mini")
 	}
@@ -290,7 +324,7 @@ struct MovieDetailsView_Previews: PreviewProvider {
 // MARK: - Image Type enum
 extension MovieDetailsView {
 	private enum ImagePlaceholder {
-		case movie
+		case movie(String)
 		case cast(String)
 	}
 }

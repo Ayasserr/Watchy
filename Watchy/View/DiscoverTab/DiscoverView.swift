@@ -9,13 +9,15 @@ import SwiftUI
 
 struct DiscoverView: View {
 	@State private var pickerSelection: MoviesTab = .trending
-	@StateObject private var discoverVM: DiscoverViewModel = DiscoverViewModel()
+	@StateObject private var discoverVM: DiscoverViewModel
 	
 	init() {
 		UITableView.appearance().showsVerticalScrollIndicator = false
 		UINavigationBar.appearance().largeTitleTextAttributes = [
 			.foregroundColor: UIColor(.textColor)
 		]
+		
+		self._discoverVM = StateObject(wrappedValue: DiscoverViewModel())
 	}
 	
     var body: some View {

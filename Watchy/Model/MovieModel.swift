@@ -42,3 +42,9 @@ extension Movie {
 		return dateFormatter.date(from: self.releaseDate) ?? Date()
 	}
 }
+
+extension Movie: Equatable {
+	public static func ==(lhs: Self, rhs: Self) -> Bool {
+		return lhs.id == rhs.id
+	}
+}
